@@ -1,3 +1,10 @@
-# systemfinance-1.0
-  Esse projeto foi desenvolvido para substituir a planilha do excell de uma vez por toda, tendo suas funções simples
-  e seus metodos capazes de ajudar qualquer pessoal com menor conhecimento possível de web.
+# systemfinance-1.2
+
+##Novidades
+1° De início coloquei nova box pra incluir data junto de todo lançamento;
+2° Depois no JS fiz todas ligações pra ao incluir somar no resumo e fazer o gráfico colaborar;
+3° Ordenagem de cada lançamento por sua data do < para o >;
+4° Por fim, 2 novos botões espetaculares capaz de salvar os lançamentos e carregar (Digamos um backup simples).
+
+
+Versão 1.2
