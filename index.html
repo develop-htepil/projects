@@ -8,10 +8,15 @@
 
   <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
-  <link rel="stylesheet" href="/projects/systemfinance 1.0/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <main>
+    <div class="button">
+      <button id="btnSave">Enviar dados</button>
+      <button id="btnLoad">Carregar dados</button>
+    </div>
     <div class="resume">
       <div>
         Entradas: R$
@@ -42,6 +47,10 @@
           <option>Saída</option>
         </select>
       </div>
+      <div class="divDate">
+        <label for="date">Data</label>
+        <input type="date" id="date" />
+      </div>
       <button id="btnNew">Incluir</button>
     </div>
     <div class="divTable">
@@ -51,6 +60,7 @@
             <th>Descrição</th>
             <th class="columnAmount">Valor</th>
             <th class="columnType">Tipo</th>
+            <th class="columnDate">Data</th>
             <th class="columnAction"></th>
           </tr>
         </thead>
@@ -58,12 +68,12 @@
         </tbody>
       </table>
     </div>
-    <div class="chartContainer">
+    <div class="divChart">
       <canvas id="pieChart"></canvas>
     </div>
   </main>  
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="/projects/systemfinance 1.0/script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
