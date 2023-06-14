@@ -1,4 +1,5 @@
 # systemfinance-1.3
+const systemfinance-1.3 = {
 ```Novidades
   "1° Implementação dos filtros com data inicial e final", 
   "2° Mudança de local do gráfico e filtro de entrada e saída dentro do gráfico", 
