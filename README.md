@@ -1,11 +1,9 @@
-# systemfinance-1.2
+# systemfinance-1.3
 ```Novidades
-const systemfinance-1.2 = {
-  Melhorias: 
-  "1° De início coloquei nova box pra incluir data junto de todo lançamento", 
-  "2° Depois no JS fiz todas ligações pra ao incluir somar no resumo e fazer o gráfico colaborar", 
-  "3° Ordenagem de cada lançamento por sua data do < para o >", 
-  "4° Por fim, 2 novos botões espetaculares capaz de salvar os lançamentos e carregar (Digamos um backup simples).",
+  "1° Implementação dos filtros com data inicial e final", 
+  "2° Mudança de local do gráfico e filtro de entrada e saída dentro do gráfico", 
+  "3° Modelagem de toda estrutura visual, mantendo o aspecto básico e de fácil manuseio", 
+  "4° Por fim, revisada toda a estrutura de envio dos dados para se encaixar completamente nos novos locais do sistema..",
   Linguagens: ["Html", "CSS", "JavaScript"],
 };
 ```
