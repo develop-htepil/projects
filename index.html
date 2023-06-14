@@ -5,74 +5,101 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistema Financeiro</title>
-
+  <!-- font awesome cdn link -->
   <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-
+  <!-- custom css file link -->
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <main>
-    <div class="button">
-      <button id="btnSave">Enviar dados</button>
-      <button id="btnLoad">Carregar dados</button>
-    </div>
-    <div class="resume">
-      <div>
-        Entradas: R$
-        <span class="incomes">0.00</span>
-      </div>
-      <div>
-        Saídas: R$
-        <span class="expenses">0.00</span>
-      </div>
-      <div>
-        Total: R$
-        <span class="total">0.00</span>
-      </div>
-    </div>
-    <div class="newItem">
-      <div class="divDesc">
-        <label for="desc">Descrição</label>
-        <input type="text" id="desc" />
-      </div>
-      <div class="divAmount">
-        <label for="amount">Valor</label>
-        <input type="number" id="amount" />
-      </div>
-      <div class="divType">
-        <label for="type">Tipo</label>
-        <select id="type">
-          <option>Entrada</option>
-          <option>Saída</option>
-        </select>
-      </div>
-      <div class="divDate">
-        <label for="date">Data</label>
-        <input type="date" id="date" />
-      </div>
-      <button id="btnNew">Incluir</button>
-    </div>
-    <div class="divTable">
-      <table>
-        <thead>
-          <tr>
-            <th>Descrição</th>
-            <th class="columnAmount">Valor</th>
-            <th class="columnType">Tipo</th>
-            <th class="columnDate">Data</th>
-            <th class="columnAction"></th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
-    <div class="divChart">
-      <canvas id="pieChart"></canvas>
-    </div>
-  </main>  
+  <!-- header section starts -->
+  <header>
+    <!-- conteúdo do header -->
+  </header>
+  <!-- header section ends -->
 
+  <!-- resumo section starts -->
+  <main>
+    <div class="content">
+      <!-- botões -->
+      <div class="button">
+        <label class="control">Controle de Dados:</label>
+        <button id="btnSave">Enviar</button>
+        <button id="btnLoad">Carregar</button>
+      </div>
+
+      <!-- filtro de data -->
+      <div class="filter">
+        <label for="startDate">Data Inicial:</label>
+        <input type="date" id="startDate">
+        <label for="endDate">Data Final:</label>
+        <input type="date" id="endDate">
+        <button id="btnFilter">Filtrar</button>
+      </div>
+
+      <!-- resumo dos valores -->
+      <div class="resume">
+        <div id="incomes">
+          Entradas: R$
+          <span class="incomes">0.00</span>
+        </div>
+        <div id="expenses">
+          Saídas: R$
+          <span class="expenses">0.00</span>
+        </div>
+        <div id="total">
+          Total: R$
+          <span class="total">0.00</span>
+        </div>
+      </div>
+        <!-- gráfico de pizza -->
+        <div class="divChart">
+          <canvas id="pieChart"></canvas>
+        </div>
+      <!-- adicionar novo item -->
+      <div class="newItem">
+        <div class="divDesc">
+          <label for="desc">Descrição</label>
+          <input type="text" id="desc" />
+        </div>
+        <div class="divAmount">
+          <label for="amount">Valor</label>
+          <input type="number" id="amount" />
+        </div>
+        <div class="divType">
+          <label for="type">Tipo</label>
+          <select id="type">
+            <option>Entrada</option>
+            <option>Saída</option>
+          </select>
+        </div>
+        <div class="divDate">
+          <label for="date">Data</label>
+          <input type="date" id="date" />
+        </div>
+        <button id="btnNew">Incluir</button>
+      </div>
+
+      <!-- tabela de itens -->
+      <div class="divTable">
+        <table>
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th class="columnAmount">Valor</th>
+              <th class="columnType">Tipo</th>
+              <th class="columnDate">Data</th>
+              <th class="columnAction">Excluir</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- corpo da tabela será preenchido dinamicamente -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- bibliotecas e scripts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
 </body>

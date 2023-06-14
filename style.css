@@ -1,16 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Roboto:wght@100;300;400;500;700&family=Rubik:wght@300;400;600;700;800&display=swap');
+
 * {
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
   outline: none;
+  border: none;
+  text-decoration: none;
+}
+
+:root {
+  --main-color: #5c69b4;
+  --black: #13131a;
+  --bg: #010103;
+  --bgb: #041470;
+  --border: .1rem solid rgba(255, 255, 255, .3);
+  --text: #fff;
+  --positivo: #42b883;
+  --negativo: #f34c44
 }
 
 body {
   height: 100vh;
   display: flex;
   justify-content: center;
-  background-color: #f0f0f0;
+  background-color: var(--bg);
 }
 
 main {
@@ -22,13 +37,41 @@ main {
   margin: 20px;
 }
 
-.resume {
-  display: flex;
-  padding: 10px 0;
-  gap: 40px;
-  width: 100%;
-  justify-content: center;
-  flex-wrap: wrap;
+button {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 600;
+}
+
+.control {
+  color: var(--text);
+}
+
+#btnSave,
+#btnLoad,
+#btnNew,
+#btnFilter {
+  background-color: var(--bgb);
+  color: white;
+  padding: 0 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 25px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  margin-top: 9px;
+  margin-left: 9px;
+}
+
+#btnSave:hover,
+#btnLoad:hover,
+#btnNew:hover,
+#btnFilter:hover {
+  color: var(--text);
+  background-color: var(--main-color);
+}
+
+.filter {
+  color: white;
 }
 
 .resume > div {
@@ -39,6 +82,30 @@ main {
   padding: 10px;
   width: 150px;
   background-color: #fff;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+#incomes {
+  color: var(--text);
+  background-color: var(--positivo);
+}
+
+#expenses {
+  color: var(--text);
+  background-color: var(--negativo);
+}
+
+#total {
+  color: var(--text);
+  background-color: var(--bgb);
+}
+
+.divChart {
+  width: 230px;
+  height: 230px;
+  margin-top: -215px;
+  margin-left: 480px;
 }
 
 .chart-container {
@@ -46,9 +113,10 @@ main {
 }
 
 .newItem {
+  color: var(--text);
   display: flex;
   gap: 10px;
-  align-items: end;
+  align-items: flex-end;
   width: 100%;
   justify-content: center;
   flex-wrap: wrap;
@@ -57,32 +125,48 @@ main {
 
 .divDesc,
 .divType,
-.divAmount {
+.divAmount,
+.divDate {
   display: flex;
   flex-direction: column;
 }
 
 .newItem > button {
-  background-color: #2C73D2;
+  background-color: var(--main-color);
   color: white;
-  border: none;
   padding: 0 15px;
   border-radius: 5px;
   cursor: pointer;
   height: 34px;
   font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
 input,
 select {
   padding: 5px;
   font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+}
+
+select option {
+  color: var(--black);
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .divTable {
   width: 100%;
   display: flex;
   justify-content: center;
+  background-color: var(--bgb);
 }
 
 table {
@@ -90,16 +174,31 @@ table {
   padding: 20px 0;
   border-radius: 5px;
   background-color: #fff;
+  text-align: center;
 }
 
 th {
-  text-align: start;
+  text-align: center;
   border-bottom: inset;
   padding-bottom: 5px;
+  border-radius: 15px;
+  color: var(--bgb);
+  font-size: 17px;
+  border-color: #04147041;
 }
 
 i {
   font-size: 25px;
+}
+
+.columnAmount {
+  width: 280px;
+  text-align: center;
+}
+
+.columnType {
+  width: 80px;
+  text-align: center;
 }
 
 .bxs-chevron-up-circle {
@@ -110,21 +209,48 @@ i {
   color: #D83121;
 }
 
+.columnDate {
+  width: 82px;
+  text-align: center;
+}
+
 .columnAction {
-  width: 40px;
+  width: 80px;
   text-align: center;
 }
 
 .columnAction > button {
   background: transparent;
+  cursor: pointer;
   border: none;
+  color: var(--bgb);
 }
 
-.columnAmount {
-  width: 30%;
+.columnAction > button:hover {
+  background: transparent;
+  cursor: pointer;
+  border: none;
+  color: var(--main-color);
 }
 
-.columnType {
-  width: 80px;
-  text-align: center;
+@media screen and (max-width: 768px) {
+  main {
+    margin: 10px;
+  }
+
+  .divChart {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .newItem {
+    flex-direction: column;
+  }
+
+  .divDesc,
+  .divType,
+  .divAmount,
+  .divDate {
+    width: 100%;
+  }
 }

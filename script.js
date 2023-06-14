@@ -6,6 +6,9 @@ const date = document.querySelector("#date");
 const btnNew = document.querySelector("#btnNew");
 const btnSave = document.querySelector("#btnSave");
 const btnLoad = document.querySelector("#btnLoad");
+const btnFilter = document.querySelector("#btnFilter");
+const startDateInput = document.querySelector("#startDate");
+const endDateInput = document.querySelector("#endDate");
 
 const incomes = document.querySelector(".incomes");
 const expenses = document.querySelector(".expenses");
@@ -65,6 +68,10 @@ btnLoad.onclick = () => {
   fileInput.click();
 };
 
+btnFilter.onclick = () => {
+  loadItems();
+};
+
 function deleteItem(index) {
   items.splice(index, 1);
   setItemsToLocalStorage();
@@ -88,90 +95,104 @@ function insertItem(item, index) {
 }
 
 function loadItems() {
+  const startDate = new Date(startDateInput.value); // Converter para objeto Date
+  const endDate = new Date(endDateInput.value); // Converter para objeto Date
+
   tbody.innerHTML = "";
-  items.sort((a, b) => {
+  const filteredItems = items.filter(item => {
+    const itemDate = new Date(item.date); // Converter para objeto Date
+    return itemDate >= startDate && itemDate <= endDate;
+  });
+  filteredItems.sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
     return dateA - dateB;
   });
-  items.forEach((item, index) => {
+  filteredItems.forEach((item, index) => {
     insertItem(item, index);
   });
 
-  calculateTotals();
-  updatePieChart();
+  calculateTotals(filteredItems);
+  updatePieChart(filteredItems);
 }
 
-function calculateTotals() {
-  const amountIncomes = items
-    .filter((item) => item.type === "Entrada")
-    .map((transaction) => Number(transaction.amount));
+function calculateTotals(filteredItems) {
+  const totalIncomes = filteredItems.reduce((total, item) => {
+    if (item.type === "Entrada") {
+      return total + parseFloat(item.amount);
+    }
+    return total;
+  }, 0);
 
-  const amountExpenses = items
-    .filter((item) => item.type === "Saída")
-    .map((transaction) => Number(transaction.amount));
+  const totalExpenses = filteredItems.reduce((total, item) => {
+    if (item.type === "Saída") {
+      return total + parseFloat(item.amount);
+    }
+    return total;
+  }, 0);
 
-  const totalIncomes = amountIncomes.reduce((acc, cur) => acc + cur, 0).toFixed(2);
-  const totalExpenses = Math.abs(amountExpenses.reduce((acc, cur) => acc + cur, 0)).toFixed(2);
-  const totalItems = (totalIncomes - totalExpenses).toFixed(2);
+  const totalAmount = totalIncomes - totalExpenses;
 
-  incomes.textContent = totalIncomes;
-  expenses.textContent = totalExpenses;
-  total.textContent = totalItems;
+  incomes.textContent = totalIncomes.toFixed(2);
+  expenses.textContent = totalExpenses.toFixed(2);
+  total.textContent = totalAmount.toFixed(2);
 }
 
-function updatePieChart() {
-  const amountIncomes = items
-    .filter((item) => item.type === "Entrada")
-    .map((transaction) => Number(transaction.amount));
+function updatePieChart(filteredItems) {
+  const labels = ["Entradas", "Saídas"];
+  const data = [0, 0];
 
-  const amountExpenses = items
-    .filter((item) => item.type === "Saída")
-    .map((transaction) => Number(transaction.amount));
+  filteredItems.forEach((item) => {
+    if (item.type === "Entrada") {
+      data[0] += parseFloat(item.amount);
+    } else if (item.type === "Saída") {
+      data[1] += parseFloat(item.amount);
+    }
+  });
 
-  const data = {
-    labels: ["Entradas", "Saídas"],
-    datasets: [
-      {
-        data: [
-          amountIncomes.reduce((acc, cur) => acc + cur, 0),
-          amountExpenses.reduce((acc, cur) => acc + cur, 0),
-        ],
-        backgroundColor: ["#00FF00", "#D83121"],
-      },
-    ],
-  };
-
-  if (!pieChart) {
+  if (pieChart) {
+    pieChart.data.labels = labels;
+    pieChart.data.datasets[0].data = data;
+    pieChart.update();
+  } else {
     pieChart = new Chart(pieChartElement, {
       type: "pie",
-      data: data,
-      options: {
-        responsive: true,
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            data: data,
+            backgroundColor: ["#42b883", "#f34c44"],
+          },
+        ],
       },
     });
-  } else {
-    pieChart.data = data;
-    pieChart.update();
   }
 }
 
-function getItemsFromLocalStorage() {
-  return JSON.parse(localStorage.getItem("db_items")) || [];
+function setItemsToLocalStorage() {
+  localStorage.setItem("items", JSON.stringify(items));
 }
 
-function setItemsToLocalStorage() {
-  localStorage.setItem("db_items", JSON.stringify(items));
+function getItemsFromLocalStorage() {
+  const savedItems = localStorage.getItem("items");
+
+  if (savedItems) {
+    return JSON.parse(savedItems);
+  }
+
+  return [];
 }
 
 function downloadFile(data, filename) {
-  const element = document.createElement("a");
-  element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(data));
-  element.setAttribute("download", filename);
-  element.style.display = "none";
-  document.body.appendChild(element);
-  element.click();
-  document.body.removeChild(element);
+  const file = new Blob([data], { type: "text/plain" });
+
+  const a = document.createElement("a");
+  const url = URL.createObjectURL(file);
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 loadItems();
